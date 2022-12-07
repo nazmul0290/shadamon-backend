@@ -14,7 +14,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://shadamon-three.vercel.app",
+      "https://3000-work0290-shadamon-6d0r1xcekjb.ws-us77.gitpod.io",
+    ],
     credentials: true,
   })
 );
