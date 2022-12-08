@@ -10,6 +10,8 @@ import { sendToken } from "../utils/sendToken.js";
 //     })
 // })
 
+//create user
+
 export const createUser = catchAsyncError(async (req, res, nex) => {
   const user = await User.create(req.body);
   if (!user.email && !user.phone) {
@@ -18,8 +20,9 @@ export const createUser = catchAsyncError(async (req, res, nex) => {
   sendToken(user, 200, res);
 });
 
-export const loginUser = catchAsyncError(async (req, res, nex) => {
+//login User
 
+export const loginUser = catchAsyncError(async (req, res, nex) => {
   const { phone, email, password } = req.body;
   let user;
 
@@ -30,14 +33,13 @@ export const loginUser = catchAsyncError(async (req, res, nex) => {
       user = await User.findOne({ phone });
     }
   }
-  
+
   if (!user) {
     return nex(new ErrorHandler("invalid email or password", 401));
   }
   if (!password) {
     return nex(new ErrorHandler("invalid email or Password", 401));
   }
-
 
   const isPasswordMatched = await user.comparePassword(password);
 
